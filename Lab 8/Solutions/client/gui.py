@@ -64,6 +64,9 @@ class ChatGUI:
         login_window = tk.Toplevel(self.root)
         login_window.title("Login")
         login_window.protocol("WM_DELETE_WINDOW", self.on_closing)
+        x = self.root.winfo_x()
+        y = self.root.winfo_y()
+        login_window.geometry("+%d+%d" % (x + 100, y + 200))
 
         label_login = tk.Label(login_window, text="Login:")
         entry_login = tk.Entry(login_window)
@@ -107,7 +110,12 @@ class ChatGUI:
     def open_chat(self, *args):
         receiver_login = self.users_list.get(self.users_list.curselection()[0])[4:]
         receiver_id = self.users[receiver_login]
-        self.chats.append(self.ChatWindow(self.user.login, self.user.id, receiver_login, receiver_id))
+        chat = self.ChatWindow(self.user.login, self.user.id, receiver_login, receiver_id)
+        x = self.root.winfo_x()
+        y = self.root.winfo_y()
+        chat.geometry("+%d+%d" % (x + 100, y + 200))
+
+        self.chats.append(chat)
 
     def try_login(self, login, password, login_window=None):
         res = None
